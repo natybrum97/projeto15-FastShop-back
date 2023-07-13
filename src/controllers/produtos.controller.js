@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { db } from "../database/database.connection.js";
 
-export async function getPrID(req,res){
+export async function getPID(req,res){
     const {id} = req.params
     try {
         const prod = await db.collection("produtos").findOne({ _id: new ObjectId(id)})
