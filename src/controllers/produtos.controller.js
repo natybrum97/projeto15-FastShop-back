@@ -1,6 +1,10 @@
 import { ObjectId } from "mongodb";
 import { db } from "../database/database.connection.js";
 
+export function teste(){
+    console.log("oi")
+}
+
 export async function getProdID(req,res){
     const {id} = req.params
     try {
