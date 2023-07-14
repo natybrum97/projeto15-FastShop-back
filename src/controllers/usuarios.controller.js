@@ -2,19 +2,10 @@ import { stripHtml } from "string-strip-html";
 import { db } from "../database/database.connection.js"
 import bcrypt from "bcrypt";
 import { v4 as uuid } from 'uuid';
-import { schemaCadastro } from "../schemas/usuarios.schemas.js";
-import { schemaLogin } from "../schemas/usuarios.schemas.js";
 
 export async function postCadastro (req, res) {
 
     const { name, email, password } = req.body;
-
-    const validation = schemaCadastro.validate(req.body, { abortEarly: false });
-
-    if (validation.error) {
-        const errors = validation.error.details.map(detail => detail.message);
-        return res.status(422).send(errors);
-    }
 
     const sanitizedName = stripHtml(name).result.trim();
     const sanitizedEmail = stripHtml(email).result.trim();
@@ -40,13 +31,6 @@ export async function postCadastro (req, res) {
 export async function postLogin (req, res) {
 
     const { email, password } = req.body;
-
-    const validation = schemaLogin.validate(req.body, { abortEarly: false });
-
-    if (validation.error) {
-        const errors = validation.error.details.map(detail => detail.message);
-        return res.status(422).send(errors);
-    }
 
     const sanitizedEmail = stripHtml(email).result.trim();
     const sanitizedPassword = stripHtml(password).result.trim();
