@@ -6,7 +6,6 @@ import { schemaCadastro, schemaLogin } from "../schemas/usuarios.schemas.js";
 const usuariosRouter = Router();
 
 usuariosRouter.post("/cadastro", validateSchema(schemaCadastro), postCadastro );
-
 usuariosRouter.post("/", validateSchema(schemaLogin), postLogin);
 
 export default usuariosRouter;
