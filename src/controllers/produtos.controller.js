@@ -66,3 +66,47 @@ export async function postRegistraCarrinho (req, res) {
     }
 
 }
+
+export async function pegarCarrinho (req, res) {
+
+    const { sessao } = res.locals;
+
+    try {
+        const listaCarrinho = await db.collection("ColocaNoCarrinho").find({idUsuario: sessao.idUsuario}).toArray();
+
+        console.log(listaCarrinho);
+        
+        res.send(listaCarrinho);
+
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+
+export async function deletaProduto (req, res) {
+
+    const { id } = req.params;
+    
+    try {
+    const result = await db.collection("ColocaNoCarrinho").deleteOne({ _id: new ObjectId(id) })
+    if (result.deletedCount === 0) return res.status(404).send("Esse produto não existe no carrinho!");
+    res.status(204).send("Produto deletado com sucesso!");
+    } catch (err) {
+    res.status(500).send(err.message);
+    }
+    }
+
+    export async function deletaTudoDoCarrinho(req, res) {
+        try {
+          const result = await db.collection("ColocaNoCarrinho").deleteMany({});
+          
+          if (result.deletedCount === 0) {
+            return res.status(404).send("O carrinho está vazio!");
+          }
+      
+          res.status(204).send("Todos os produtos foram removidos do carrinho!");
+        } catch (err) {
+          res.status(500).send(err.message);
+        }
+      }
+      
