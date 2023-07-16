@@ -1,6 +1,18 @@
 import { ObjectId } from "mongodb";
 import { db } from "../database/database.connection.js";
 
+export async function registraCompra(req,res){
+    try {
+        const compra = await db.collection("compras").insertOne(req.body)
+        res.status(200).send("Compra realizada com sucesso")
+    } catch (err) {
+        return res.status(500).send(err.message);
+    }
+}
+
+
+
+
 export async function getProdID(req,res){
 
     const { id } = req.params;

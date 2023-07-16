@@ -47,7 +47,7 @@ export async function postLogin (req, res) {
         await db.collection("login").insertOne({ token, idUsuario: usuario._id });
 
 
-        return res.status(200).send({token: token, nome: usuario.name});
+        return res.status(200).send({token: token, nome: usuario.name, _id: usuario._id});
 
     } catch (err) {
         res.status(500).send(err.message);
